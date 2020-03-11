@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import "./styles.css"
 
 class App extends React.Component {
@@ -7,8 +8,19 @@ class App extends React.Component {
         super()
 
         this.state = {
-            todo : ""
+            todo : "",
+            todos: []
         }
+    }
+
+    componentDidMount() {
+        fetch("http://localhost:5000/todos")
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    todos: data
+                })
+            })
     }
 
     addTodo = (event) => {
